@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liga Profesional Argentina 2026</title>
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-2: rgba(255,255,255,0.72);
+      --border: rgba(0,0,0,0.08);
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #aeaeb2;
+      --blue: #0071e3;
+      --blue-light: #e8f0fd;
+      --green: #30d158;
+      --red: #ff3b30;
+      --yellow: #ffd60a;
+      --orange: #ff9f0a;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06);
+      --radius: 18px;
+      --radius-sm: 10px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --surface: #1c1c1e;
+        --surface-2: rgba(28,28,30,0.8);
+        --border: rgba(255,255,255,0.10);
+        --text-primary: #f5f5f7;
+        --text-secondary: #98989d;
+        --text-tertiary: #48484a;
+        --blue-light: #1c2f4d;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+        --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(145deg, #001a54 0%, #003087 40%, #0050d8 100%);
+      padding: 64px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 20% 30%, rgba(75,150,255,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 70%, rgba(0,80,216,0.3) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 20px;
+    }
+
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #ffffff;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #74b9ff, #a8d8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+      position: relative;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 40px;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ─── CONTENT ──────────────────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      padding: 48px 0 0;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    /* ─── TABS ─────────────────────────────────────────────── */
+    .tabs-wrapper {
+      padding: 32px 0 0;
+    }
+
+    .tabs {
+      display: inline-flex;
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 2px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      padding: 9px 22px;
+      border-radius: 9px;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+      font-family: inherit;
+    }
+
+    .tab-btn.active {
+      background: var(--blue);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,113,227,0.35);
+    }
+
+    /* ─── TABLE CARD ───────────────────────────────────────── */
+    .table-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    .table-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      padding: 10px 12px;
+      text-align: right;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    thead th:first-child,
+    thead th:nth-child(2) {
+      text-align: left;
+    }
+
+    thead th:first-child { width: 42px; padding-left: 20px; }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(0,113,227,0.03); }
+
+    tbody td {
+      padding: 13px 12px;
+      text-align: right;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    tbody td:first-child {
+      text-align: left;
+      padding-left: 20px;
+      width: 42px;
+    }
+
+    tbody td:nth-child(2) { text-align: left; }
+
+    .pos-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      width: 22px;
+      display: inline-block;
+    }
+
+    .pos-indicator {
+      display: inline-block;
+      width: 3px;
+      height: 22px;
+      border-radius: 2px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team-crest {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .team-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .team-short {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    td.pts {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    td.gd-pos { color: var(--green); font-weight: 600; }
+    td.gd-neg { color: var(--red); font-weight: 600; }
+    td.gd-zero { color: var(--text-secondary); }
+
+    .form-dots {
+      display: flex;
+      gap: 3px;
+      justify-content: flex-end;
+    }
+
+    .form-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .form-w { background: var(--green); }
+    .form-d { background: var(--yellow); }
+    .form-l { background: var(--red); }
+
+    /* Zone tag */
+    .zone-tag {
+      display: inline-block;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+
+    /* ─── TOP SCORERS ──────────────────────────────────────── */
+    .scorers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .scorer-card {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .scorer-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .scorer-rank {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-tertiary);
+      width: 28px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .scorer-rank.gold { color: #FFD700; }
+    .scorer-rank.silver { color: #C0C0C0; }
+    .scorer-rank.bronze { color: #CD7F32; }
+
+    .scorer-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .scorer-info { flex: 1; }
+
+    .scorer-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .scorer-team {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 1px;
+    }
+
+    .scorer-goals {
+      text-align: right;
+    }
+
+    .scorer-goals-num {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .scorer-goals-label {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── HIGHLIGHTS ───────────────────────────────────────── */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .highlight-card {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .highlight-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .highlight-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      margin-bottom: 4px;
+    }
+
+    .highlight-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .highlight-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    footer {
+      margin-top: 64px;
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.8;
+    }
+
+    .footer-text a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* ─── TABS CONTENT ─────────────────────────────────────── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .hide-mobile { display: none !important; }
+      .hero { padding: 48px 20px 64px; }
+      .hero-stats { gap: 20px; }
+      thead th:first-child { padding-left: 14px; }
+      tbody td:first-child { padding-left: 14px; }
+      .table-header { padding: 16px; }
+      .team-short { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    En Curso · Fecha 12
+  </div>
+  <h1>Liga Profesional<br><span>Argentina 2026</span></h1>
+  <p class="hero-sub">Torneo Apertura Mercado Libre · Actualizado al 22 de marzo de 2026</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-value">30</div>
+      <div class="hero-stat-label">Equipos</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">2</div>
+      <div class="hero-stat-label">Zonas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">14</div>
+      <div class="hero-stat-label">Fechas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">16</div>
+      <div class="hero-stat-label">Play-off</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ═══ HIGHLIGHTS ═══ -->
+  <section class="section">
+    <div class="section-title">Destacados</div>
+    <div class="section-subtitle">Estadísticas líderes del torneo</div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">🏆</div>
+        <div class="highlight-label">Líder Zona A</div>
+        <div class="highlight-value">Vélez</div>
+        <div class="highlight-sub">22 pts · Invicto</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🏆</div>
+        <div class="highlight-label">Líder Zona B</div>
+        <div class="highlight-value">Ind. Rivadavia</div>
+        <div class="highlight-sub">20 pts · 6V 2E 3D</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">⚽</div>
+        <div class="highlight-label">Campeón defensor</div>
+        <div class="highlight-value">Estudiantes LP</div>
+        <div class="highlight-sub">Clausura 2025</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">📅</div>
+        <div class="highlight-label">Finales</div>
+        <div class="highlight-value">24 May 2026</div>
+        <div class="highlight-sub">Cierre del Apertura</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STANDINGS ═══ -->
+  <section class="section tabs-wrapper">
+    <div class="section-title">Tabla de Posiciones</div>
+    <div class="section-subtitle">Fase regular · Fecha 11 completada</div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" role="tab" onclick="switchTab('zona-a', this)">Zona A</button>
+      <button class="tab-btn" role="tab" onclick="switchTab('zona-b', this)">Zona B</button>
+    </div>
+
+    <!-- ZONA A -->
+    <div id="zona-a" class="tab-content active">
+      <div class="table-card">
+        <div class="table-header">
+          <div>
+            <div class="table-title">Zona A</div>
+          </div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#0071e3"></div> Copa Libertadores</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#30d158"></div> Play-offs</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#ff3b30"></div> Descenso</div>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Equipo</th>
+              <th class="hide-mobile">PJ</th>
+              <th class="hide-mobile">V</th>
+              <th class="hide-mobile">E</th>
+              <th class="hide-mobile">D</th>
+              <th class="hide-mobile">GF</th>
+              <th class="hide-mobile">GC</th>
+              <th>DG</th>
+              <th>PTS</th>
+              <th class="hide-mobile">Forma</th>
+            </tr>
+          </thead>
+          <tbody id="zona-a-body"></tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONA B -->
+    <div id="zona-b" class="tab-content">
+      <div class="table-card">
+        <div class="table-header">
+          <div>
+            <div class="table-title">Zona B</div>
+          </div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#0071e3"></div> Copa Libertadores</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#30d158"></div> Play-offs</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#ff3b30"></div> Descenso</div>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Equipo</th>
+              <th class="hide-mobile">PJ</th>
+              <th class="hide-mobile">V</th>
+              <th class="hide-mobile">E</th>
+              <th class="hide-mobile">D</th>
+              <th class="hide-mobile">GF</th>
+              <th class="hide-mobile">GC</th>
+              <th>DG</th>
+              <th>PTS</th>
+              <th class="hide-mobile">Forma</th>
+            </tr>
+          </thead>
+          <tbody id="zona-b-body"></tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TOP SCORERS ═══ -->
+  <section class="section">
+    <div class="section-title">Goleadores</div>
+    <div class="section-subtitle">Torneo Apertura 2026 · Más goles anotados</div>
+    <div class="scorers-grid" id="scorers-grid"></div>
+  </section>
+
+</div>
+
+<footer>
+  <p class="footer-text">
+    Datos correspondientes a la Fecha 11 del Torneo Apertura 2026.<br>
+    Fuentes: <a href="https://www.ligaprofesional.ar" target="_blank">ligaprofesional.ar</a> ·
+    <a href="https://www.espn.com/soccer/standings/_/league/arg.1" target="_blank">ESPN</a> ·
+    <a href="https://www.infobae.com/deportes/" target="_blank">Infobae Deportes</a><br>
+    © 2026 · Torneo Mercado Libre
+  </p>
+</footer>
+
+<script>
+  /* ── DATA ── */
+  const zonaA = [
+    { pos: 1,  name: "Vélez Sarsfield",    short: "VEL", color: "#003087", pj: 10, v: 6, e: 4, d: 0, gf: 19, gc:  8, form: ["W","W","D","W","D"] },
+    { pos: 2,  name: "Unión",              short: "UNI", color: "#e63312", pj: 11, v: 5, e: 1, d: 5, gf: 14, gc: 15, form: ["W","L","D","W","L"] },
+    { pos: 3,  name: "Defensa y Justicia", short: "DEF", color: "#c8a400", pj: 11, v: 5, e: 1, d: 5, gf: 13, gc: 12, form: ["W","D","W","L","W"] },
+    { pos: 4,  name: "Talleres",           short: "TAL", color: "#0052a5", pj: 11, v: 4, e: 3, d: 4, gf: 15, gc: 14, form: ["D","W","L","W","W"] },
+    { pos: 5,  name: "Boca Juniors",       short: "BOC", color: "#002f6c", pj: 11, v: 4, e: 2, d: 5, gf: 13, gc: 14, form: ["D","D","L","D","W"] },
+    { pos: 6,  name: "Independiente",      short: "IND", color: "#cc0000", pj: 11, v: 4, e: 2, d: 5, gf: 11, gc: 12, form: ["W","D","L","W","D"] },
+    { pos: 7,  name: "Platense",           short: "PLA", color: "#0066cc", pj: 11, v: 4, e: 2, d: 5, gf: 12, gc: 13, form: ["L","W","D","W","L"] },
+    { pos: 8,  name: "Lanús",              short: "LAN", color: "#c8102e", pj: 11, v: 3, e: 4, d: 4, gf: 12, gc: 14, form: ["D","W","D","L","W"] },
+    { pos: 9,  name: "San Lorenzo",        short: "SLO", color: "#003087", pj: 11, v: 3, e: 4, d: 4, gf: 11, gc: 13, form: ["D","D","L","W","D"] },
+    { pos: 10, name: "Estudiantes LP",     short: "EST", color: "#cc0000", pj: 10, v: 3, e: 2, d: 5, gf: 12, gc: 14, form: ["L","W","D","L","W"] },
+    { pos: 11, name: "Newell's Old Boys",  short: "NOB", color: "#cc0000", pj: 11, v: 3, e: 2, d: 6, gf: 10, gc: 17, form: ["L","D","L","W","L"] },
+    { pos: 12, name: "Instituto",          short: "INS", color: "#001f5b", pj: 11, v: 2, e: 3, d: 6, gf:  8, gc: 16, form: ["L","D","L","D","L"] },
+    { pos: 13, name: "Central Córdoba",    short: "CCC", color: "#003087", pj: 11, v: 2, e: 2, d: 7, gf:  9, gc: 19, form: ["L","L","D","L","W"] },
+    { pos: 14, name: "Dep. Riestra",       short: "RIE", color: "#007a33", pj: 11, v: 2, e: 1, d: 8, gf:  7, gc: 18, form: ["L","L","W","L","L"] },
+    { pos: 15, name: "Gimnasia (M)",       short: "GIM", color: "#005f2f", pj: 11, v: 1, e: 2, d: 8, gf:  7, gc: 21, form: ["L","D","L","L","D"] },
+  ];
+
+  const zonaB = [
+    { pos: 1,  name: "Ind. Rivadavia",     short: "IRV", color: "#003087", pj: 11, v: 6, e: 2, d: 3, gf: 21, gc: 14, form: ["W","W","D","L","W"] },
+    { pos: 2,  name: "Belgrano",           short: "BEL", color: "#0052a5", pj: 11, v: 6, e: 1, d: 4, gf: 17, gc: 12, form: ["W","D","W","L","D"] },
+    { pos: 3,  name: "Rosario Central",    short: "CEN", color: "#003087", pj: 11, v: 5, e: 3, d: 3, gf: 19, gc: 14, form: ["W","D","W","D","W"] },
+    { pos: 4,  name: "Tigre",              short: "TIG", color: "#ff6b00", pj: 11, v: 5, e: 2, d: 4, gf: 16, gc: 14, form: ["W","L","D","W","W"] },
+    { pos: 5,  name: "River Plate",        short: "RIV", color: "#cc0000", pj: 11, v: 5, e: 2, d: 4, gf: 18, gc: 15, form: ["L","W","D","W","W"] },
+    { pos: 6,  name: "Racing Club",        short: "RAC", color: "#36a9e1", pj: 11, v: 4, e: 3, d: 4, gf: 14, gc: 13, form: ["D","W","W","L","W"] },
+    { pos: 7,  name: "Barracas Central",   short: "BAR", color: "#005f2f", pj: 11, v: 4, e: 3, d: 4, gf: 11, gc: 11, form: ["D","D","W","L","W"] },
+    { pos: 8,  name: "Gimnasia LP",        short: "GYE", color: "#0052a5", pj: 11, v: 4, e: 2, d: 5, gf: 13, gc: 16, form: ["L","W","D","L","W"] },
+    { pos: 9,  name: "Huracán",            short: "HUR", color: "#cc0000", pj: 11, v: 3, e: 4, d: 4, gf: 13, gc: 15, form: ["D","L","W","D","D"] },
+    { pos: 10, name: "Atlético Tucumán",   short: "ATU", color: "#003087", pj: 11, v: 3, e: 2, d: 6, gf: 12, gc: 18, form: ["L","W","L","D","L"] },
+    { pos: 11, name: "Banfield",           short: "BAN", color: "#007a33", pj: 11, v: 2, e: 4, d: 5, gf: 10, gc: 16, form: ["D","D","L","W","D"] },
+    { pos: 12, name: "Argentinos Jrs",     short: "ARG", color: "#cc0000", pj: 11, v: 2, e: 4, d: 5, gf: 11, gc: 17, form: ["D","L","D","W","L"] },
+    { pos: 13, name: "Estudiantes (RC)",   short: "ERC", color: "#cc0000", pj: 11, v: 2, e: 2, d: 7, gf:  9, gc: 20, form: ["L","L","D","L","W"] },
+    { pos: 14, name: "Aldosivi",           short: "ALD", color: "#005f2f", pj: 11, v: 2, e: 1, d: 8, gf:  8, gc: 20, form: ["L","L","W","L","L"] },
+    { pos: 15, name: "Sarmiento",          short: "SAR", color: "#007a33", pj: 11, v: 1, e: 2, d: 8, gf:  7, gc: 21, form: ["L","L","D","L","L"] },
+  ];
+
+  const topScorers = [
+    { rank: 1,  name: "Braian Romero",       team: "Vélez Sarsfield",    goals: 7,  color: "#003087" },
+    { rank: 2,  name: "Jáminton Campaz",     team: "Rosario Central",    goals: 6,  color: "#003087" },
+    { rank: 3,  name: "Ángel Di María",      team: "Rosario Central",    goals: 5,  color: "#003087" },
+    { rank: 4,  name: "Adrián Fernández",    team: "Racing Club",        goals: 5,  color: "#36a9e1" },
+    { rank: 5,  name: "Fabrizio Sartori",    team: "Ind. Rivadavia",     goals: 5,  color: "#003087" },
+    { rank: 6,  name: "Uvita Fernández",     team: "Belgrano",           goals: 4,  color: "#0052a5" },
+    { rank: 7,  name: "Carlos Izquierdoz",   team: "Lanús",              goals: 4,  color: "#c8102e" },
+    { rank: 8,  name: "Gabriel Ávalos",      team: "Independiente",      goals: 4,  color: "#cc0000" },
+  ];
+
+  /* ── RENDER ── */
+  function getPosColor(pos) {
+    if (pos === 1) return "#0071e3";
+    if (pos <= 8) return "#30d158";
+    if (pos >= 14) return "#ff3b30";
+    return "transparent";
+  }
+
+  function gdClass(v) {
+    if (v > 0) return "gd-pos";
+    if (v < 0) return "gd-neg";
+    return "gd-zero";
+  }
+
+  function initials(name) {
+    return name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+  }
+
+  function renderForm(form) {
+    return form.map(r => `<div class="form-dot form-${r.toLowerCase()}"></div>`).join("");
+  }
+
+  function renderTable(data, tbodyId) {
+    const tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = data.map(t => {
+      const pts = t.v * 3 + t.e;
+      const dg  = t.gf - t.gc;
+      return `
+        <tr>
+          <td>
+            <span class="pos-indicator" style="background:${getPosColor(t.pos)}"></span>
+            <span class="pos-num">${t.pos}</span>
+          </td>
+          <td>
+            <div class="team-cell">
+              <div class="team-crest" style="background:${t.color}">${initials(t.name)}</div>
+              <div>
+                <div class="team-name">${t.name}</div>
+                <div class="team-short">${t.short}</div>
+              </div>
+            </div>
+          </td>
+          <td class="hide-mobile">${t.pj}</td>
+          <td class="hide-mobile">${t.v}</td>
+          <td class="hide-mobile">${t.e}</td>
+          <td class="hide-mobile">${t.d}</td>
+          <td class="hide-mobile">${t.gf}</td>
+          <td class="hide-mobile">${t.gc}</td>
+          <td class="${gdClass(dg)}">${dg > 0 ? "+" : ""}${dg}</td>
+          <td class="pts">${pts}</td>
+          <td class="hide-mobile"><div class="form-dots">${renderForm(t.form)}</div></td>
+        </tr>`;
+    }).join("");
+  }
+
+  function renderScorers(scorers) {
+    const grid = document.getElementById("scorers-grid");
+    const rankClass = r => r === 1 ? "gold" : r === 2 ? "silver" : r === 3 ? "bronze" : "";
+    grid.innerHTML = scorers.map(s => `
+      <div class="scorer-card">
+        <div class="scorer-rank ${rankClass(s.rank)}">${s.rank}</div>
+        <div class="scorer-avatar" style="background:${s.color}">${initials(s.name)}</div>
+        <div class="scorer-info">
+          <div class="scorer-name">${s.name}</div>
+          <div class="scorer-team">${s.team}</div>
+        </div>
+        <div class="scorer-goals">
+          <div class="scorer-goals-num">${s.goals}</div>
+          <div class="scorer-goals-label">goles</div>
+        </div>
+      </div>`).join("");
+  }
+
+  /* ── TABS ── */
+  function switchTab(id, btn) {
+    document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    btn.classList.add("active");
+  }
+
+  /* ── INIT ── */
+  renderTable(zonaA, "zona-a-body");
+  renderTable(zonaB, "zona-b-body");
+  renderScorers(topScorers);
+</script>
+</body>
+</html>
