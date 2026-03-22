@@ -429,25 +429,41 @@
 </footer>
 
 <script>
-  /* ─── LOGOS (Wikipedia Commons thumbnails) ─── */
+  /* ─── LOGOS (Transfermarkt CDN — works in browser) ─── */
+  const TM = id => `https://tmssl.akamaized.net/images/wappen/normquad/${id}.png`;
   const LOGOS = {
-    "Vélez Sarsfield":    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Club_Atl%C3%A9tico_V%C3%A9lez_S%C3%A1rsfield.svg/28px-Club_Atl%C3%A9tico_V%C3%A9lez_S%C3%A1rsfield.svg.png",
-    "Boca Juniors":       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Boca_Juniors_logo18.svg/28px-Boca_Juniors_logo18.svg.png",
-    "San Lorenzo":        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Escudo_de_San_Lorenzo_de_Almagro.svg/28px-Escudo_de_San_Lorenzo_de_Almagro.svg.png",
-    "Independiente":      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Club_Atletico_Independiente.svg/28px-Club_Atletico_Independiente.svg.png",
-    "Talleres":           "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Club_Atletico_Talleres.svg/28px-Club_Atletico_Talleres.svg.png",
-    "Estudiantes LP":     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Escudo_Club_Estudiantes_de_La_Plata.svg/28px-Escudo_Club_Estudiantes_de_La_Plata.svg.png",
-    "Newell's Old Boys":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Newells.svg/28px-Newells.svg.png",
-    "Lanús":              "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Club_Atletico_Lanus.svg/28px-Club_Atletico_Lanus.svg.png",
-    "River Plate":        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Escudo_del_C_A_River_Plate.svg/28px-Escudo_del_C_A_River_Plate.svg.png",
-    "Racing Club":        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Racing_Club_Avellaneda.svg/28px-Racing_Club_Avellaneda.svg.png",
-    "Belgrano":           "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Club_Atletico_Belgrano.svg/28px-Club_Atletico_Belgrano.svg.png",
-    "Rosario Central":    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Rosario_Central_logo.svg/28px-Rosario_Central_logo.svg.png",
-    "Huracán":            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Atletico_huracan.svg/28px-Atletico_huracan.svg.png",
-    "Gimnasia LP":        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Gym_LP.svg/28px-Gym_LP.svg.png",
-    "Banfield":           "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Banfield_logo.svg/28px-Banfield_logo.svg.png",
-    "Argentinos Jrs":     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Argentinos_Juniors_logo.svg/28px-Argentinos_Juniors_logo.svg.png",
-    "Tigre":              "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Club_Atletico_Tigre_logo.svg/28px-Club_Atletico_Tigre_logo.svg.png",
+    // Zone A
+    "Vélez Sarsfield":    TM(2459),
+    "Unión":              TM(9432),
+    "Defensa y Justicia": TM(25271),
+    "Talleres":           TM(16041),
+    "Boca Juniors":       TM(1251),
+    "Independiente":      TM(2657),
+    "Platense":           TM(26786),
+    "Lanús":              TM(5765),
+    "San Lorenzo":        TM(2161),
+    "Estudiantes LP":     TM(545),
+    "Newell's Old Boys":  TM(552),
+    "Instituto":          TM(18225),
+    "Central Córdoba":    TM(37619),
+    "Dep. Riestra":       TM(43579),
+    "Gimnasia (M)":       TM(19016),
+    // Zone B
+    "Ind. Rivadavia":     TM(18222),
+    "Belgrano":           TM(1106),
+    "Rosario Central":    TM(548),
+    "Tigre":              TM(6505),
+    "River Plate":        TM(997),
+    "Racing Club":        TM(3718),
+    "Barracas Central":   TM(37628),
+    "Gimnasia LP":        TM(1109),
+    "Huracán":            TM(2672),
+    "Atlético Tucumán":   TM(14736),
+    "Banfield":           TM(6506),
+    "Argentinos Jrs":     TM(2476),
+    "Estudiantes (RC)":   TM(30905),
+    "Aldosivi":           TM(6504),
+    "Sarmiento":          TM(6502),
   };
 
   /* ─── TEAM DATA ─── */
